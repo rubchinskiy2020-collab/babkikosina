@@ -1,0 +1,2512 @@
+<!-- ... existing code ... -->
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.45;
+            transition: background-color var(--transition), color var(--transition);
+            padding-bottom: calc(96px + env(safe-area-inset-bottom));
+            overflow-x: hidden;
+        }
+
+        /* Контейнер (Mobile-first, на десктопе аккуратная колонка) */
+        .app-container {
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 0 14px;
+        }
+
+        /* Шапка приложения */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background-color: var(--bg-body);
+            padding: calc(12px + env(safe-area-inset-top)) 0 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 11px;
+            background: var(--accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            min-width: 44px;
+            min-height: 44px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .icon-btn:active {
+            transform: scale(0.94);
+        }
+
+        /* Карточки */
+        .card {
+            background-color: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: background-color var(--transition), border-color var(--transition);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            gap: 8px;
+        }
+
+        .card-title {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Переключатель периода на дашборде */
+        .period-pills {
+            display: inline-flex;
+            background-color: var(--bg-surface-secondary);
+            padding: 3px;
+            border-radius: var(--radius-full);
+        }
+
+        .period-pill {
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            min-height: 32px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .period-pill.active {
+            background-color: var(--bg-surface);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Главный баланс */
+        .balance-amount {
+            font-size: 2.05rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 14px;
+            word-break: break-word;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .stat-box {
+            background-color: var(--bg-surface-secondary);
+            border-radius: var(--radius-md);
+            padding: 10px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .stat-box.clickable {
+            cursor: pointer;
+        }
+
+        .stat-box.clickable:active {
+            transform: scale(0.97);
+        }
+
+        .stat-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.74rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .dot.income { background-color: var(--income); }
+        .dot.expense { background-color: var(--expense); }
+        .dot.savings { background-color: var(--accent); }
+
+        .stat-value {
+            font-size: 0.94rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .stat-value.income { color: var(--income); }
+        .stat-value.expense { color: var(--expense); }
+        .stat-value.savings { color: var(--accent); }
+
+        /* Прогресс-бар бюджета */
+        .budget-section {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .budget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            gap: 8px;
+        }
+
+        .budget-header strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .inline-link-btn {
+            border: none;
+            background: transparent;
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 4px 6px;
+            min-height: 32px;
+        }
+<!-- ... existing code ... -->
+        /* Чипсы категорий */
+        .section-label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .section-label {
+            display: block;
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        .category-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .chip {
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface-secondary);
+            color: var(--text-primary);
+            padding: 9px 14px;
+            min-height: 40px;
+            border-radius: var(--radius-full);
+            font-size: 0.88rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all var(--transition);
+            user-select: none;
+        }
+
+        .chip:active {
+            transform: scale(0.95);
+        }
+
+        .chip.selected {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .chip.add-cat-chip {
+            border-style: dashed;
+            background-color: transparent;
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Поля комментария и даты (16px шрифт против авто-зума на iOS Safari) */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .input-field {
+            width: 100%;
+            min-height: 44px;
+            background-color: var(--bg-surface-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            font-size: 16px;
+            color: var(--text-primary);
+            font-family: inherit;
+            outline: none;
+            transition: border-color var(--transition);
+        }
+
+        .input-field:focus {
+            border-color: var(--accent);
+        }
+
+        /* Главная кнопка действия */
+        .primary-btn {
+            width: 100%;
+            min-height: 48px;
+            background-color: var(--accent);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color var(--transition), transform var(--transition);
+        }
+
+        .primary-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .primary-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Плавающая кнопка быстрого добавления (FAB) на мобильных */
+        .fab-btn {
+            position: fixed;
+            right: 18px;
+            bottom: calc(80px + env(safe-area-inset-bottom));
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-full);
+            background-color: var(--accent);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.38);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 38;
+            transition: transform var(--transition), background-color var(--transition);
+        }
+
+        .fab-btn:active {
+            transform: scale(0.92);
+        }
+
+        /* Фильтры истории операций */
+        .filters-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .filter-row-top {
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-box input {
+            padding-left: 36px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .month-select {
+            width: 138px;
+            flex-shrink: 0;
+        }
+
+        .type-filter-pills {
+            display: flex;
+            gap: 6px;
+        }
+
+        .filter-pill {
+            flex: 1;
+            min-height: 40px;
+            padding: 8px 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .filter-pill.active {
+            background-color: var(--accent-soft);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+<!-- ... existing code ... -->
+        .tx-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .tx-amount {
+            font-size: 0.96rem;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .tx-amount.income { color: var(--income); }
+        .tx-amount.expense { color: var(--text-primary); }
+        .tx-amount.savings { color: var(--accent); }
+
+        .delete-btn {
+            min-width: 44px;
+            min-height: 44px;
+            border-radius: var(--radius-sm);
+            border: none;
+            background-color: transparent;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .delete-btn:hover, .delete-btn:active {
+            background-color: var(--expense-soft);
+            color: var(--expense);
+        }
+
+        /* Раздел КОПИЛКА */
+        .piggy-hero {
+            background: linear-gradient(135deg, var(--accent) 0%, #1d4ed8 100%);
+            color: #ffffff;
+            border: none;
+        }
+
+        .piggy-hero .card-title {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .piggy-total {
+            font-size: 2.15rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
+
+        .piggy-actions-row {
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 10px;
+        }
+
+        .piggy-btn-deposit {
+            min-height: 46px;
+            border-radius: var(--radius-md);
+            border: none;
+            background-color: #ffffff;
+            color: #1d4ed8;
+            font-size: 0.94rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: transform var(--transition);
+        }
+
+        .piggy-btn-deposit:active {
+            transform: scale(0.97);
+        }
+
+        .piggy-btn-withdraw {
+            min-height: 46px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            background-color: rgba(255, 255, 255, 0.14);
+            color: #ffffff;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: transform var(--transition);
+        }
+
+        .piggy-btn-withdraw:active {
+            transform: scale(0.97);
+        }
+
+        .jars-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .jar-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .jar-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .jar-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .jar-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background-color: var(--accent-soft);
+            color: var(--accent);
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .jar-name {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .jar-amounts {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .jar-amounts strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .jar-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .jar-quick-add {
+            min-height: 38px;
+            padding: 0 12px;
+            border-radius: var(--radius-full);
+            border: none;
+            background-color: var(--accent-soft);
+            color: var(--accent);
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .jar-quick-add:active {
+            transform: scale(0.95);
+        }
+
+        /* Переключатель (чекбокс-свитч) в модалке копилки */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background-color: var(--bg-surface-secondary);
+            padding: 12px 14px;
+            border-radius: var(--radius-md);
+            margin-bottom: 14px;
+            cursor: pointer;
+        }
+
+        .toggle-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .toggle-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .toggle-sub {
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+        }
+
+        .toggle-checkbox {
+            width: 22px;
+            height: 22px;
+            accent-color: var(--accent);
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        /* Список управления категориями */
+        .cat-manage-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 52vh;
+            overflow-y: auto;
+            margin-bottom: 14px;
+        }
+
+        .cat-manage-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--bg-surface-secondary);
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+        }
+
+        .cat-manage-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 0.94rem;
+        }
+
+        /* Пустое состояние */
+        .empty-state {
+            text-align: center;
+            padding: 36px 16px;
+            color: var(--text-secondary);
+        }
+<!-- ... existing code ... -->
+        .currency-btn {
+            min-height: 44px;
+            padding: 10px 4px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface-secondary);
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .currency-btn.active {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: #ffffff;
+        }
+
+        .secondary-btn {
+            width: 100%;
+            min-height: 46px;
+            padding: 12px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface-secondary);
+            color: var(--text-primary);
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background-color var(--transition);
+        }
+
+        .secondary-btn:hover {
+            background-color: var(--bg-hover);
+        }
+
+        .btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .danger-btn {
+            color: var(--expense);
+            border-color: var(--expense-soft);
+            background-color: var(--expense-soft);
+        }
+
+        /* Нижняя панель навигации (Mobile-first) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+            z-index: 40;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-item {
+            flex: 1;
+            max-width: 140px;
+            min-height: 50px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 6px 4px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.74rem;
+            font-weight: 600;
+            transition: color var(--transition);
+        }
+
+        .nav-item.active {
+            color: var(--accent);
+        }
+
+        .nav-item svg {
+            width: 22px;
+            height: 22px;
+        }
+<!-- ... existing code ... -->
+        /* Модальное окно (Bottom Sheet на мобильных) */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.52);
+            backdrop-filter: blur(3px);
+            z-index: 60;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 0;
+        }
+
+        @media (min-width: 480px) {
+            .modal-backdrop {
+                align-items: center;
+                padding: 16px;
+            }
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal-card {
+            width: 100%;
+            max-width: 480px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background-color: var(--bg-surface);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            padding: 20px 18px calc(22px + env(safe-area-inset-bottom));
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            animation: slideUp 0.22s ease;
+        }
+
+        @media (min-width: 480px) {
+            .modal-card {
+                border-radius: var(--radius-lg);
+                padding: 22px;
+            }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0;
+        }
+
+        .modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        /* Всплывающее уведомление (Toast) с кнопкой отмены */
+        .toast {
+            position: fixed;
+            bottom: calc(82px + env(safe-area-inset-bottom));
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background-color: #1f2937;
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.88rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-md);
+            z-index: 70;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            max-width: calc(100vw - 28px);
+        }
+
+        [data-theme="dark"] .toast {
+            background-color: #374151;
+        }
+
+        .toast.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast-undo {
+            border: none;
+            background: transparent;
+            color: #60a5fa;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 4px 6px;
+            min-height: 36px;
+        }
+
+        /* Адаптация для очень узких экранов */
+        @media (max-width: 380px) {
+            .chart-layout {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .donut-wrapper {
+                margin: 0 auto;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .stat-box.savings-box {
+                grid-column: span 2;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Шапка -->
+    <header class="header">
+        <div class="header-title">
+            <div class="logo-badge">₽</div>
+            <span>Финансы</span>
+        </div>
+        <div class="header-actions">
+            <button type="button" class="icon-btn" id="openSettingsBtn" aria-label="Настройки" title="Настройки и экспорт">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+            </button>
+            <button type="button" class="icon-btn" id="themeToggleBtn" aria-label="Переключить тему" title="Сменить тему">
+                <!-- Иконка темы подставляется через JS -->
+            </button>
+        </div>
+    </header>
+
+    <!-- ЭКРАН 1: ОБЗОР (ДАШБОРД И БЫСТРЫЙ ВВОД) -->
+    <main id="tab-dashboard" class="tab-view active">
+        <!-- Карточка баланса -->
+        <section class="card">
+            <div class="card-header">
+                <span class="card-title">Доступный остаток</span>
+                <div class="period-pills" role="group" aria-label="Период статистики">
+                    <button type="button" class="period-pill active" data-period="month">Этот месяц</button>
+                    <button type="button" class="period-pill" data-period="all">Всё время</button>
+                </div>
+            </div>
+
+            <div class="balance-amount" id="totalBalanceDisplay">0 ₽</div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-label"><span class="dot income"></span>Доходы</span>
+                    <span class="stat-value income" id="periodIncomeDisplay">0 ₽</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label"><span class="dot expense"></span>Расходы</span>
+                    <span class="stat-value expense" id="periodExpenseDisplay">0 ₽</span>
+                </div>
+                <div class="stat-box savings-box clickable" id="goToPiggyStatBtn" title="Перейти в копилку">
+                    <span class="stat-label"><span class="dot savings"></span>В копилке</span>
+                    <span class="stat-value savings" id="dashboardSavingsDisplay">0 ₽</span>
+                </div>
+            </div>
+
+            <!-- Индикатор месячного лимита -->
+            <div class="budget-section" id="budgetProgressBlock">
+                <div class="budget-header">
+                    <span>Бюджет на месяц</span>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <span id="budgetProgressText">Не задан</span>
+                        <button type="button" class="inline-link-btn" id="inlineEditBudgetBtn">Изменить</button>
+                    </div>
+                </div>
+                <div class="progress-track" id="budgetProgressTrack" style="display: none;">
+                    <div class="progress-fill" id="budgetProgressBar" style="width: 0%;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Структура расходов по категориям (SVG Donut Chart) -->
+        <section class="card">
+            <div class="card-header">
+                <span class="card-title" id="chartCardTitle">Расходы за текущий месяц</span>
+            </div>
+            <div id="chartContainer">
+                <!-- SVG диаграмма или заглушка -->
+            </div>
+        </section>
+
+        <!-- Последние 3 операции на главном экране для быстрого контроля -->
+        <section class="card">
+            <div class="card-header">
+                <span class="card-title">Последние операции</span>
+                <button type="button" class="inline-link-btn" id="seeAllTxBtn">Все операции →</button>
+            </div>
+            <div id="recentTransactionsContainer" class="tx-list"></div>
+        </section>
+    </main>
+
+    <!-- ЭКРАН 2: КОПИЛКА (НАКОПЛЕНИЯ И ЦЕЛИ) -->
+    <section id="tab-piggy" class="tab-view">
+        <!-- Главная карточка копилки -->
+        <section class="card piggy-hero">
+            <div class="card-header">
+                <span class="card-title">Всего в копилке</span>
+                <span style="font-size: 1.35rem;">🐷</span>
+            </div>
+            <div class="piggy-total" id="piggyTotalDisplay">0 ₽</div>
+            <div class="piggy-actions-row">
+                <button type="button" class="piggy-btn-deposit" id="openPiggyDepositBtn">
+                    <span>+ Отложить с ЗП</span>
+                </button>
+                <button type="button" class="piggy-btn-withdraw" id="openPiggyWithdrawBtn">
+                    <span>− Взять</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Цели накопления (Банки / Конверты) -->
+        <div class="card-header" style="margin: 14px 4px 10px;">
+            <span class="card-title" style="font-size: 0.96rem; color: var(--text-primary);">Цели и конверты</span>
+            <button type="button" class="inline-link-btn" id="openNewJarBtn">+ Новая цель</button>
+        </div>
+
+        <div id="jarsListContainer" class="jars-grid">
+            <!-- Карточки целей рендерятся динамически -->
+        </div>
+
+        <!-- История пополнений и снятий копилки -->
+        <div class="card-header" style="margin: 16px 4px 10px;">
+            <span class="card-title" style="font-size: 0.96rem; color: var(--text-primary);">История копилки</span>
+        </div>
+
+        <div id="piggyHistoryContainer" class="tx-list">
+            <!-- История операций копилки -->
+        </div>
+    </section>
+
+    <!-- ЭКРАН 3: ИСТОРИЯ ОПЕРАЦИЙ И УПРАВЛЕНИЕ -->
+    <section id="tab-history" class="tab-view">
+        <div class="card" style="padding: 12px;">
+            <div class="filters-bar" style="margin-bottom: 0;">
+                <div class="filter-row-top">
+                    <div class="search-box">
+                        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="search" class="input-field" id="searchInput" placeholder="Поиск...">
+                    </div>
+                    <select class="input-field month-select" id="monthFilterSelect" aria-label="Фильтр по месяцу">
+                        <option value="all">Все месяцы</option>
+                    </select>
+                </div>
+
+                <div class="type-filter-pills">
+                    <button type="button" class="filter-pill active" data-type-filter="all">Все</button>
+                    <button type="button" class="filter-pill" data-type-filter="expense">Расходы</button>
+                    <button type="button" class="filter-pill" data-type-filter="income">Доходы</button>
+                    <button type="button" class="filter-pill" data-type-filter="savings">В копилку</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="transactionsListContainer" class="tx-list">
+            <!-- Список операций рендерится динамически -->
+        </div>
+    </section>
+</div>
+
+<!-- Плавающая кнопка быстрого добавления (FAB) -->
+<button type="button" class="fab-btn" id="fabAddBtn" aria-label="Добавить операцию" title="Новая операция">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+    </svg>
+</button>
+
+<!-- Нижняя панель навигации (3 вкладки) -->
+<nav class="bottom-nav" aria-label="Основная навигация">
+    <button type="button" class="nav-item active" data-tab="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+        </svg>
+        <span>Обзор</span>
+    </button>
+    <button type="button" class="nav-item" data-tab="piggy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2V5z"></path>
+            <path d="M2 9v1c0 1.1.9 2 2 2h1"></path>
+            <path d="M16 11h.01"></path>
+        </svg>
+        <span>Копилка</span>
+    </button>
+    <button type="button" class="nav-item" data-tab="history">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+        <span>История</span>
+    </button>
+</nav>
+
+<!-- МОДАЛЬНОЕ ОКНО 1: БЫСТРОЕ ДОБАВЛЕНИЕ РАСХОДА / ДОХОДА -->
+<div class="modal-backdrop" id="quickAddModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <div class="modal-title">Новая операция</div>
+            <button type="button" class="icon-btn" id="closeQuickAddBtn" style="min-width: 38px; min-height: 38px; border: none;" aria-label="Закрыть">✕</button>
+        </div>
+
+        <div class="type-switch">
+            <button type="button" class="type-btn active expense" id="typeExpenseBtn">Расход</button>
+            <button type="button" class="type-btn income" id="typeIncomeBtn">Доход</button>
+        </div>
+
+        <form id="txForm" novalidate>
+            <div class="amount-input-group">
+                <input type="text" inputmode="decimal" class="amount-input" id="amountInput" placeholder="0" autocomplete="off" required>
+                <span class="amount-currency-badge" id="inputCurrencySymbol">₽</span>
+            </div>
+
+            <div class="section-label-row">
+                <label class="section-label">Категория</label>
+                <button type="button" class="inline-link-btn" id="openManageCategoriesBtn">Удалить лишние</button>
+            </div>
+            <div class="category-chips" id="categoryChipsContainer">
+                <!-- Чипсы рендерятся динамически -->
+            </div>
+
+            <div class="form-row">
+                <input type="text" class="input-field" id="noteInput" placeholder="Комментарий" maxlength="80">
+                <input type="date" class="input-field" id="dateInput" required>
+            </div>
+
+            <button type="submit" class="primary-btn" id="submitTxBtn">Добавить расход</button>
+        </form>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО 2: ПОПОЛНИТЬ / ВЗЯТЬ ИЗ КОПИЛКИ -->
+<div class="modal-backdrop" id="piggyTxModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <div class="modal-title" id="piggyModalTitle">Отложить в копилку</div>
+            <button type="button" class="icon-btn" id="closePiggyTxBtn" style="min-width: 38px; min-height: 38px; border: none;" aria-label="Закрыть">✕</button>
+        </div>
+
+        <form id="piggyTxForm" novalidate>
+            <div class="amount-input-group">
+                <input type="text" inputmode="decimal" class="amount-input" id="piggyAmountInput" placeholder="0" autocomplete="off" required>
+                <span class="amount-currency-badge" id="piggyCurrencySymbol">₽</span>
+            </div>
+
+            <label class="section-label" style="margin-bottom: 6px;">Цель / Конверт</label>
+            <select class="input-field" id="piggyJarSelect" style="margin-bottom: 12px;"></select>
+
+            <label class="toggle-row" id="deductBalanceToggleRow">
+                <div class="toggle-text">
+                    <span class="toggle-title" id="toggleTitleText">Списать с основного баланса</span>
+                    <span class="toggle-sub" id="toggleSubText">Уменьшит доступный остаток на расходы</span>
+                </div>
+                <input type="checkbox" class="toggle-checkbox" id="linkMainBalanceCheck" checked>
+            </label>
+
+            <div class="form-row">
+                <input type="text" class="input-field" id="piggyNoteInput" placeholder="Заметка (напр. С аванса)" maxlength="80">
+                <input type="date" class="input-field" id="piggyDateInput" required>
+            </div>
+
+            <button type="submit" class="primary-btn" id="submitPiggyTxBtn">Пополнить копилку</button>
+        </form>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО 3: НОВАЯ ЦЕЛЬ КОПИЛКИ -->
+<div class="modal-backdrop" id="newJarModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <div class="modal-title">Новая цель копилки</div>
+            <button type="button" class="icon-btn" id="closeNewJarBtn" style="min-width: 38px; min-height: 38px; border: none;">✕</button>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <input type="text" class="input-field" id="newJarNameInput" placeholder="Название (например: На отпуск)" maxlength="30">
+            <input type="text" inputmode="decimal" class="input-field" id="newJarTargetInput" placeholder="Целевая сумма (необязательно)">
+        </div>
+        <div class="modal-actions">
+            <button type="button" class="secondary-btn" id="cancelNewJarBtn">Отмена</button>
+            <button type="button" class="primary-btn" id="confirmNewJarBtn">Создать</button>
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО 4: ДОБАВИТЬ КАТЕГОРИЮ -->
+<div class="modal-backdrop" id="categoryModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <div class="modal-title">Новая категория</div>
+            <button type="button" class="icon-btn" id="cancelCategoryBtnTop" style="min-width: 38px; min-height: 38px; border: none;">✕</button>
+        </div>
+        <input type="text" class="input-field" id="newCategoryNameInput" placeholder="Название категории (например: Кофе)" maxlength="24">
+        <div class="modal-actions">
+            <button type="button" class="secondary-btn" id="cancelCategoryBtn">Отмена</button>
+            <button type="button" class="primary-btn" id="confirmCategoryBtn">Добавить</button>
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО 5: УПРАВЛЕНИЕ И УДАЛЕНИЕ КАТЕГОРИЙ -->
+<div class="modal-backdrop" id="manageCategoriesModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <div class="modal-title">Категории</div>
+            <button type="button" class="icon-btn" id="closeManageCatBtn" style="min-width: 38px; min-height: 38px; border: none;">✕</button>
+        </div>
+        <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 12px;">Удалите ненужные категории, чтобы не мешали при вводе</p>
+        <div class="cat-manage-list" id="manageCategoriesList"></div>
+        <button type="button" class="secondary-btn" id="doneManageCatBtn">Готово</button>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО 6: НАСТРОЙКИ, БЮДЖЕТ И ЭКСПОРТ -->
+<div class="modal-backdrop" id="settingsModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <div class="modal-title">Настройки и данные</div>
+            <button type="button" class="icon-btn" id="closeSettingsBtn" style="min-width: 38px; min-height: 38px; border: none;">✕</button>
+        </div>
+
+        <div class="settings-group">
+            <label class="settings-label">Основная валюта</label>
+            <div class="currency-grid" id="currencySelector">
+                <button type="button" class="currency-btn" data-curr="₽">₽</button>
+                <button type="button" class="currency-btn" data-curr="€">€</button>
+                <button type="button" class="currency-btn" data-curr="$">$</button>
+                <button type="button" class="currency-btn" data-curr="₸">₸</button>
+                <button type="button" class="currency-btn" data-curr="₴">₴</button>
+            </div>
+        </div>
+
+        <div class="settings-group">
+            <label class="settings-label" for="budgetLimitInput">Месячный лимит расходов</label>
+            <div style="display: flex; gap: 8px;">
+                <input type="text" inputmode="decimal" class="input-field" id="budgetLimitInput" placeholder="Например: 50000">
+                <button type="button" class="primary-btn" id="saveBudgetBtn" style="width: auto; padding: 0 18px; border-radius: var(--radius-sm);">ОК</button>
+            </div>
+        </div>
+
+        <div class="settings-group">
+            <label class="settings-label">Управление категориями и данными</label>
+            <div class="btn-stack">
+                <button type="button" class="secondary-btn" id="settingsManageCatsBtn">Удалить лишние категории</button>
+                <button type="button" class="secondary-btn" id="exportCsvBtn">Скачать таблицу (CSV)</button>
+                <button type="button" class="secondary-btn" id="exportJsonBtn">Резервная копия (JSON)</button>
+                <button type="button" class="secondary-btn" id="importJsonBtn">Восстановить из JSON</button>
+                <input type="file" id="importFileInput" accept=".json,application/json" style="display: none;">
+                <button type="button" class="secondary-btn danger-btn" id="clearAllDataBtn">Очистить все данные</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО 7: ПОДТВЕРЖДЕНИЕ ОЧИСТКИ ДАННЫХ -->
+<div class="modal-backdrop" id="confirmClearModal">
+    <div class="modal-card">
+        <div class="modal-title" style="margin-bottom: 8px;">Удалить все данные?</div>
+        <p style="font-size: 0.9rem; color: var(--text-secondary);">Будут удалены все операции и история копилки. Действие необратимо.</p>
+        <div class="modal-actions">
+            <button type="button" class="secondary-btn" id="cancelClearBtn">Отмена</button>
+            <button type="button" class="primary-btn" id="confirmClearBtn" style="background-color: var(--expense);">Удалить всё</button>
+        </div>
+    </div>
+</div>
+
+<!-- Всплывающее уведомление (Toast) -->
+<div class="toast" id="toastBox">
+    <span id="toastMessage">Операция удалена</span>
+    <button type="button" class="toast-undo" id="toastUndoBtn" style="display: none;">Отменить</button>
+</div>
+
+<script>
+    /**
+     * Приложение для учёта личных финансов + Копилка
+     * Адаптивный mobile-first интерфейс, хранение: localStorage
+     */
+    (function () {
+        const STORAGE_KEY = 'personal_finance_tracker_v2';
+
+        const CATEGORY_COLORS = [
+            '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
+            '#ec4899', '#06b6d4', '#f97316', '#14b8a6', '#6366f1'
+        ];
+
+        const DEFAULT_CATEGORIES = [
+            { name: 'Еда', icon: '🍔', color: '#f59e0b' },
+            { name: 'Транспорт', icon: '🚌', color: '#3b82f6' },
+            { name: 'Авто', icon: '🚗', color: '#6366f1' },
+            { name: 'Жильё', icon: '🏠', color: '#8b5cf6' },
+            { name: 'Развлечения', icon: '🎬', color: '#ec4899' },
+            { name: 'Здоровье', icon: '💊', color: '#ef4444' },
+            { name: 'Покупки', icon: '🛍️', color: '#06b6d4' },
+            { name: 'Зарплата', icon: '💼', color: '#10b981' },
+            { name: 'Другое', icon: '📌', color: '#6b7280' }
+        ];
+
+        const DEFAULT_JARS = [
+            { id: 'jar_cushion', name: 'Подушка безопасности', icon: '🛡️', target: 100000 },
+            { id: 'jar_goal', name: 'Крупная покупка', icon: '🎯', target: 50000 }
+        ];
+
+        // Состояние приложения
+        let state = {
+            transactions: [],
+            categories: [...DEFAULT_CATEGORIES],
+            jars: [...DEFAULT_JARS],
+            piggyTransactions: [],
+            settings: {
+                currency: '₽',
+                monthlyBudget: 0,
+                theme: 'light'
+            }
+        };
+
+        // Временное состояние UI
+        let uiState = {
+            activeTab: 'dashboard',
+            dashboardPeriod: 'month',
+            txType: 'expense',
+            selectedCategory: 'Еда',
+            piggyMode: 'deposit', // 'deposit' | 'withdraw'
+            filterType: 'all',
+            filterMonth: 'all',
+            searchQuery: '',
+            undoAction: null,
+            toastTimer: null
+        };
+
+        // --- ИНИЦИАЛИЗАЦИЯ И ХРАНИЛИЩЕ ---
+
+        function loadState() {
+            try {
+                // Поддержка миграции из v1, если есть старые данные
+                const rawV2 = localStorage.getItem(STORAGE_KEY);
+                const rawV1 = localStorage.getItem('personal_finance_tracker_v1');
+                const raw = rawV2 || rawV1;
+
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed.transactions)) state.transactions = parsed.transactions;
+                    if (Array.isArray(parsed.categories) && parsed.categories.length > 0) {
+                        state.categories = parsed.categories;
+                    }
+                    if (Array.isArray(parsed.jars) && parsed.jars.length > 0) {
+                        state.jars = parsed.jars;
+                    }
+                    if (Array.isArray(parsed.piggyTransactions)) {
+                        state.piggyTransactions = parsed.piggyTransactions;
+                    }
+                    if (parsed.settings) {
+                        state.settings = { ...state.settings, ...parsed.settings };
+                    }
+                } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    state.settings.theme = 'dark';
+                }
+            } catch (e) {
+                console.error('Ошибка чтения localStorage:', e);
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            } catch (e) {
+                showToast('Ошибка сохранения данных в браузере');
+            }
+        }
+
+        // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
+
+        function getTodayISO() {
+            const now = new Date();
+            const offset = now.getTimezoneOffset() * 60000;
+            return new Date(now.getTime() - offset).toISOString().split('T')[0];
+        }
+
+        function getCurrentMonthISO() {
+            return getTodayISO().slice(0, 7);
+        }
+
+        function formatMoney(amount, includeSign = false) {
+            const absVal = Math.abs(amount);
+            const formatted = new Intl.NumberFormat('ru-RU', {
+                minimumFractionDigits: absVal % 1 === 0 ? 0 : 2,
+                maximumFractionDigits: 2
+            }).format(absVal);
+
+            let prefix = '';
+            if (includeSign && amount > 0) prefix = '+';
+            if (amount < 0) prefix = '−';
+
+            return `${prefix}${formatted} ${state.settings.currency}`;
+        }
+
+        function formatDateHuman(isoDate) {
+            const today = getTodayISO();
+            const yesterdayDate = new Date();
+            yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+            const offset = yesterdayDate.getTimezoneOffset() * 60000;
+            const yesterday = new Date(yesterdayDate.getTime() - offset).toISOString().split('T')[0];
+
+            if (isoDate === today) return 'Сегодня';
+            if (isoDate === yesterday) return 'Вчера';
+
+            const [y, m, d] = isoDate.split('-');
+            const dateObj = new Date(Number(y), Number(m) - 1, Number(d));
+            return dateObj.toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: y !== today.slice(0, 4) ? 'numeric' : undefined
+            });
+        }
+
+        function formatMonthHuman(ym) {
+            const [y, m] = ym.split('-');
+            const dateObj = new Date(Number(y), Number(m) - 1, 1);
+            const str = dateObj.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function getCategoryMeta(catName) {
+            if (catName === 'В копилку' || catName === 'Из копилки') {
+                return { name: catName, icon: '🐷', color: '#2563eb' };
+            }
+            const found = state.categories.find(c => c.name.toLowerCase() === catName.toLowerCase());
+            if (found) return found;
+            return { name: catName, icon: '🏷️', color: '#64748b' };
+        }
+
+        function showToast(message, undoCallback = null) {
+            const toastEl = document.getElementById('toastBox');
+            const msgEl = document.getElementById('toastMessage');
+            const undoBtn = document.getElementById('toastUndoBtn');
+
+            msgEl.textContent = message;
+            uiState.undoAction = undoCallback;
+            undoBtn.style.display = undoCallback ? 'inline-block' : 'none';
+            toastEl.classList.add('show');
+
+            if (uiState.toastTimer) clearTimeout(uiState.toastTimer);
+            uiState.toastTimer = setTimeout(() => {
+                toastEl.classList.remove('show');
+                uiState.undoAction = null;
+            }, 4500);
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function sanitizeDecimalInput(inputEl) {
+            let val = inputEl.value.replace(',', '.').replace(/[^0-9.]/g, '');
+            const parts = val.split('.');
+            if (parts.length > 2) val = parts[0] + '.' + parts.slice(1).join('');
+            if (parts[1] && parts[1].length > 2) val = parts[0] + '.' + parts[1].slice(0, 2);
+            inputEl.value = val;
+        }
+
+        // --- РАСЧЁТ БАЛАНСА КОПИЛКИ ---
+
+        function getPiggyTotals() {
+            let totalSaved = 0;
+            const byJar = {};
+            state.jars.forEach(j => { byJar[j.id] = 0; });
+
+            state.piggyTransactions.forEach(ptx => {
+                const delta = ptx.type === 'deposit' ? ptx.amount : -ptx.amount;
+                totalSaved += delta;
+                if (byJar[ptx.jarId] !== undefined) {
+                    byJar[ptx.jarId] += delta;
+                } else {
+                    byJar[ptx.jarId] = delta;
+                }
+            });
+
+            return { totalSaved, byJar };
+        }
+
+        // --- ТЕМА ОФОРМЛЕНИЯ ---
+
+        function applyTheme() {
+            const isDark = state.settings.theme === 'dark';
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            const btn = document.getElementById('themeToggleBtn');
+            btn.innerHTML = isDark
+                ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'
+                : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+        }
+
+        // --- РЕНДЕРИНГ ДАШБОРДА ---
+
+        function renderDashboard() {
+            const currentMonth = getCurrentMonthISO();
+
+            let totalIncomeAll = 0;
+            let totalExpenseAll = 0;
+            let monthIncome = 0;
+            let monthExpense = 0;
+
+            state.transactions.forEach(tx => {
+                const isCurrentMonth = tx.date.startsWith(currentMonth);
+                if (tx.type === 'income') {
+                    totalIncomeAll += tx.amount;
+                    if (isCurrentMonth) monthIncome += tx.amount;
+                } else {
+                    // Включает обычные расходы и переводы в копилку (type: 'expense' или 'savings')
+                    totalExpenseAll += tx.amount;
+                    if (isCurrentMonth && tx.type === 'expense') monthExpense += tx.amount;
+                }
+            });
+
+            const netBalance = totalIncomeAll - totalExpenseAll;
+            const { totalSaved } = getPiggyTotals();
+
+            document.getElementById('totalBalanceDisplay').textContent = formatMoney(netBalance);
+            document.getElementById('dashboardSavingsDisplay').textContent = formatMoney(totalSaved);
+
+            const displayIncome = uiState.dashboardPeriod === 'month' ? monthIncome : totalIncomeAll;
+            const displayExpense = uiState.dashboardPeriod === 'month'
+                ? monthExpense
+                : state.transactions.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
+
+            document.getElementById('periodIncomeDisplay').textContent = formatMoney(displayIncome);
+            document.getElementById('periodExpenseDisplay').textContent = formatMoney(displayExpense);
+
+            // Прогресс-бар месячного бюджета
+            const limit = Number(state.settings.monthlyBudget) || 0;
+            const track = document.getElementById('budgetProgressTrack');
+            const textEl = document.getElementById('budgetProgressText');
+
+            if (limit > 0) {
+                track.style.display = 'block';
+                const pct = Math.min(100, Math.round((monthExpense / limit) * 100));
+                const rawPct = Math.round((monthExpense / limit) * 100);
+                textEl.innerHTML = `<strong>${formatMoney(monthExpense)}</strong> из ${formatMoney(limit)} (${rawPct}%)`;
+
+                const bar = document.getElementById('budgetProgressBar');
+                bar.style.width = `${pct}%`;
+                bar.classList.remove('warning', 'danger');
+                if (rawPct >= 100) bar.classList.add('danger');
+                else if (rawPct >= 80) bar.classList.add('warning');
+            } else {
+                track.style.display = 'none';
+                textEl.textContent = 'Не задан';
+            }
+
+            renderDonutChart(uiState.dashboardPeriod === 'month' ? currentMonth : null);
+            renderRecentTransactions();
+        }
+
+        function renderRecentTransactions() {
+            const container = document.getElementById('recentTransactionsContainer');
+            const recent = state.transactions
+                .slice()
+                .sort((a, b) => {
+                    if (b.date !== a.date) return b.date.localeCompare(a.date);
+                    return (b.createdAt || 0) - (a.createdAt || 0);
+                })
+                .slice(0, 3);
+
+            if (recent.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding: 14px 0; color: var(--text-secondary); font-size: 0.86rem;">Нажмите «+» внизу справа, чтобы добавить первую запись</div>`;
+                return;
+            }
+
+            container.innerHTML = recent.map(tx => buildTransactionItemHtml(tx)).join('');
+        }
+
+        function renderDonutChart(monthFilter) {
+            const container = document.getElementById('chartContainer');
+            const titleEl = document.getElementById('chartCardTitle');
+            titleEl.textContent = monthFilter ? 'Расходы за текущий месяц' : 'Расходы за всё время';
+
+            const expenses = state.transactions.filter(tx => {
+                if (tx.type !== 'expense') return false;
+                if (monthFilter && !tx.date.startsWith(monthFilter)) return false;
+                return true;
+            });
+
+            if (expenses.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="padding: 18px 10px;">
+                        <div class="empty-state-text">Нет расходов за выбранный период</div>
+                    </div>
+                `;
+                return;
+            }
+
+            const map = {};
+            let total = 0;
+            expenses.forEach(tx => {
+                map[tx.category] = (map[tx.category] || 0) + tx.amount;
+                total += tx.amount;
+            });
+
+            const sorted = Object.entries(map)
+                .map(([name, amount]) => ({
+                    name,
+                    amount,
+                    pct: (amount / total) * 100,
+                    meta: getCategoryMeta(name)
+                }))
+                .sort((a, b) => b.amount - a.amount);
+
+            const size = 132;
+            const strokeWidth = 18;
+            const radius = (size - strokeWidth) / 2;
+            const circumference = 2 * Math.PI * radius;
+            let accumulatedPct = 0;
+
+            const circlesHtml = sorted.map(item => {
+                const dashArray = `${(item.pct / 100) * circumference} ${circumference}`;
+                const dashOffset = -((accumulatedPct / 100) * circumference);
+                accumulatedPct += item.pct;
+                return `<circle
+                    cx="${size / 2}"
+                    cy="${size / 2}"
+                    r="${radius}"
+                    fill="transparent"
+                    stroke="${item.meta.color}"
+                    stroke-width="${strokeWidth}"
+                    stroke-dasharray="${dashArray}"
+                    stroke-dashoffset="${dashOffset}"
+                />`;
+            }).join('');
+
+            const legendHtml = sorted.map(item => `
+                <div class="legend-item">
+                    <div class="legend-left">
+                        <span class="legend-color" style="background-color: ${item.meta.color};"></span>
+                        <span class="legend-name">${escapeHtml(item.name)}</span>
+                        <span class="legend-pct">${Math.round(item.pct)}%</span>
+                    </div>
+                    <span class="legend-amount">${formatMoney(item.amount)}</span>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="chart-layout">
+                    <div class="donut-wrapper">
+                        <svg class="donut-svg" viewBox="0 0 ${size} ${size}">
+                            ${circlesHtml}
+                        </svg>
+                        <div class="donut-center">
+                            <span class="donut-center-label">Всего</span>
+                            <span class="donut-center-val">${formatMoney(total)}</span>
+                        </div>
+                    </div>
+                    <div class="chart-legend">
+                        ${legendHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- РЕНДЕРИНГ РАЗДЕЛА «КОПИЛКА» ---
+
+        function renderPiggyView() {
+            const { totalSaved, byJar } = getPiggyTotals();
+            document.getElementById('piggyTotalDisplay').textContent = formatMoney(totalSaved);
+
+            const jarsContainer = document.getElementById('jarsListContainer');
+            if (state.jars.length === 0) {
+                jarsContainer.innerHTML = `<div class="card empty-state" style="padding: 20px;">Создайте первую цель, чтобы удобно копить с зарплаты</div>`;
+            } else {
+                jarsContainer.innerHTML = state.jars.map(jar => {
+                    const current = Math.max(0, byJar[jar.id] || 0);
+                    const target = Number(jar.target) || 0;
+                    const pct = target > 0 ? Math.min(100, Math.round((current / target) * 100)) : 0;
+
+                    return `
+                        <div class="jar-card">
+                            <div class="jar-top">
+                                <div class="jar-info">
+                                    <div class="jar-icon">${jar.icon || '🐷'}</div>
+                                    <div style="min-width: 0;">
+                                        <div class="jar-name">${escapeHtml(jar.name)}</div>
+                                        <div class="jar-amounts">
+                                            <strong>${formatMoney(current)}</strong>
+                                            ${target > 0 ? ` / ${formatMoney(target)} (${pct}%)` : ' накоплено'}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="jar-controls">
+                                    <button type="button" class="jar-quick-add" data-deposit-jar="${jar.id}">+ Пополнить</button>
+                                    ${state.jars.length > 1 ? `
+                                        <button type="button" class="delete-btn" data-delete-jar="${jar.id}" aria-label="Удалить цель" title="Удалить цель">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                        </button>
+                                    ` : ''}
+                                </div>
+                            </div>
+                            ${target > 0 ? `
+                                <div class="progress-track">
+                                    <div class="progress-fill" style="width: ${pct}%; background-color: ${pct >= 100 ? 'var(--income)' : 'var(--accent)'};"></div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // История операций копилки
+            const historyContainer = document.getElementById('piggyHistoryContainer');
+            const sortedPiggy = state.piggyTransactions
+                .slice()
+                .sort((a, b) => {
+                    if (b.date !== a.date) return b.date.localeCompare(a.date);
+                    return (b.createdAt || 0) - (a.createdAt || 0);
+                });
+
+            if (sortedPiggy.length === 0) {
+                historyContainer.innerHTML = `
+                    <div class="card empty-state" style="padding: 24px 14px;">
+                        <div class="empty-state-text">Пока нет записей в копилке. Нажмите «+ Отложить с ЗП»</div>
+                    </div>
+                `;
+            } else {
+                historyContainer.innerHTML = sortedPiggy.map(ptx => {
+                    const jar = state.jars.find(j => j.id === ptx.jarId) || { name: 'Копилка', icon: '🐷' };
+                    const isDeposit = ptx.type === 'deposit';
+                    const amountStr = formatMoney(isDeposit ? ptx.amount : -ptx.amount, true);
+                    const subText = [formatDateHuman(ptx.date), ptx.note].filter(Boolean).join(' • ');
+
+                    return `
+                        <div class="tx-item">
+                            <div class="tx-left">
+                                <div class="tx-icon" style="background-color: var(--accent-soft); color: var(--accent);">
+                                    ${jar.icon}
+                                </div>
+                                <div class="tx-info">
+                                    <div class="tx-category">${escapeHtml(jar.name)}</div>
+                                    <div class="tx-note">${escapeHtml(subText)}</div>
+                                </div>
+                            </div>
+                            <div class="tx-right">
+                                <span class="tx-amount ${isDeposit ? 'income' : 'expense'}">${amountStr}</span>
+                                <button type="button" class="delete-btn" data-delete-piggy-tx="${ptx.id}" aria-label="Удалить запись">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        // --- РЕНДЕРИНГ КАТЕГОРИЙ И ИСТОРИИ ---
+
+        function renderCategoryChips() {
+            const container = document.getElementById('categoryChipsContainer');
+            if (state.categories.length === 0) {
+                state.categories.push({ name: 'Другое', icon: '📌', color: '#6b7280' });
+            }
+            if (!state.categories.some(c => c.name === uiState.selectedCategory)) {
+                uiState.selectedCategory = state.categories[0].name;
+            }
+
+            const chipsHtml = state.categories.map(cat => {
+                const isSelected = cat.name === uiState.selectedCategory;
+                return `
+                    <button type="button" class="chip ${isSelected ? 'selected' : ''}" data-cat="${escapeHtml(cat.name)}">
+                        <span>${cat.icon}</span>
+                        <span>${escapeHtml(cat.name)}</span>
+                    </button>
+                `;
+            }).join('');
+
+            container.innerHTML = chipsHtml + `
+                <button type="button" class="chip add-cat-chip" id="openNewCategoryBtn">+ Своя</button>
+            `;
+        }
+
+        function renderManageCategoriesList() {
+            const listEl = document.getElementById('manageCategoriesList');
+            listEl.innerHTML = state.categories.map(cat => `
+                <div class="cat-manage-item">
+                    <div class="cat-manage-left">
+                        <span>${cat.icon}</span>
+                        <span>${escapeHtml(cat.name)}</span>
+                    </div>
+                    ${state.categories.length > 1 ? `
+                        <button type="button" class="delete-btn" data-remove-cat="${escapeHtml(cat.name)}" aria-label="Удалить категорию">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        </button>
+                    ` : '<span style="font-size:0.75rem; color:var(--text-muted);">Основная</span>'}
+                </div>
+            `).join('');
+        }
+
+        function renderMonthFilterOptions() {
+            const select = document.getElementById('monthFilterSelect');
+            const currentVal = uiState.filterMonth;
+            const monthsSet = new Set();
+            monthsSet.add(getCurrentMonthISO());
+
+            state.transactions.forEach(tx => {
+                if (tx.date && tx.date.length >= 7) {
+                    monthsSet.add(tx.date.slice(0, 7));
+                }
+            });
+
+            const sortedMonths = Array.from(monthsSet).sort((a, b) => b.localeCompare(a));
+            let html = '<option value="all">Все месяцы</option>';
+            sortedMonths.forEach(ym => {
+                html += `<option value="${ym}">${formatMonthHuman(ym)}</option>`;
+            });
+
+            select.innerHTML = html;
+            select.value = sortedMonths.includes(currentVal) || currentVal === 'all' ? currentVal : 'all';
+        }
+
+        function buildTransactionItemHtml(tx) {
+            const meta = getCategoryMeta(tx.category);
+            const isIncome = tx.type === 'income';
+            const isSavings = tx.type === 'savings';
+            const formattedAmount = formatMoney(isIncome ? tx.amount : -tx.amount, true);
+            const amountClass = isIncome ? 'income' : (isSavings ? 'savings' : 'expense');
+
+            return `
+                <div class="tx-item" data-id="${tx.id}">
+                    <div class="tx-left">
+                        <div class="tx-icon" style="background-color: ${meta.color}20; color: ${meta.color};">
+                            ${meta.icon}
+                        </div>
+                        <div class="tx-info">
+                            <div class="tx-category">${escapeHtml(tx.category)}</div>
+                            ${tx.note ? `<div class="tx-note">${escapeHtml(tx.note)}</div>` : ''}
+                        </div>
+                    </div>
+                    <div class="tx-right">
+                        <span class="tx-amount ${amountClass}">${formattedAmount}</span>
+                        <button type="button" class="delete-btn" data-delete-id="${tx.id}" aria-label="Удалить операцию" title="Удалить">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTransactionsList() {
+            const container = document.getElementById('transactionsListContainer');
+            const query = uiState.searchQuery.trim().toLowerCase();
+
+            const filtered = state.transactions
+                .filter(tx => {
+                    if (uiState.filterType !== 'all' && tx.type !== uiState.filterType) return false;
+                    if (uiState.filterMonth !== 'all' && !tx.date.startsWith(uiState.filterMonth)) return false;
+                    if (query) {
+                        const matchCat = tx.category.toLowerCase().includes(query);
+                        const matchNote = (tx.note || '').toLowerCase().includes(query);
+                        if (!matchCat && !matchNote) return false;
+                    }
+                    return true;
+                })
+                .sort((a, b) => {
+                    if (b.date !== a.date) return b.date.localeCompare(a.date);
+                    return (b.createdAt || 0) - (a.createdAt || 0);
+                });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="card empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <div class="empty-state-text">Операции не найдены</div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            let lastDate = '';
+
+            filtered.forEach(tx => {
+                if (tx.date !== lastDate) {
+                    lastDate = tx.date;
+                    html += `<div class="tx-group-date">${formatDateHuman(tx.date)}</div>`;
+                }
+                html += buildTransactionItemHtml(tx);
+            });
+
+            container.innerHTML = html;
+        }
+
+        function renderSettings() {
+            document.querySelectorAll('.currency-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.curr === state.settings.currency);
+            });
+            document.getElementById('inputCurrencySymbol').textContent = state.settings.currency;
+            document.getElementById('piggyCurrencySymbol').textContent = state.settings.currency;
+            document.querySelector('.logo-badge').textContent = state.settings.currency;
+
+            const budgetInput = document.getElementById('budgetLimitInput');
+            budgetInput.value = state.settings.monthlyBudget > 0 ? state.settings.monthlyBudget : '';
+        }
+
+        function refreshAllUI() {
+            applyTheme();
+            renderSettings();
+            renderCategoryChips();
+            renderDashboard();
+            renderPiggyView();
+            renderMonthFilterOptions();
+            renderTransactionsList();
+        }
+
+        // --- НАВИГАЦИЯ ---
+
+        function switchTab(targetTab) {
+            uiState.activeTab = targetTab;
+            document.querySelectorAll('.nav-item').forEach(b => {
+                b.classList.toggle('active', b.dataset.tab === targetTab);
+            });
+            document.querySelectorAll('.tab-view').forEach(view => {
+                view.classList.toggle('active', view.id === `tab-${targetTab}`);
+            });
+
+            if (targetTab === 'history') {
+                renderMonthFilterOptions();
+                renderTransactionsList();
+            } else if (targetTab === 'piggy') {
+                renderPiggyView();
+            } else if (targetTab === 'dashboard') {
+                renderDashboard();
+            }
+        }
+
+        document.querySelectorAll('.nav-item').forEach(btn => {
+            btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+        });
+
+        document.getElementById('goToPiggyStatBtn').addEventListener('click', () => switchTab('piggy'));
+        document.getElementById('seeAllTxBtn').addEventListener('click', () => switchTab('history'));
+
+        // Переключение темы
+        document.getElementById('themeToggleBtn').addEventListener('click', () => {
+            state.settings.theme = state.settings.theme === 'dark' ? 'light' : 'dark';
+            saveState();
+            applyTheme();
+        });
+
+        // Переключатель периода на дашборде
+        document.querySelectorAll('.period-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                document.querySelectorAll('.period-pill').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                uiState.dashboardPeriod = pill.dataset.period;
+                renderDashboard();
+            });
+        });
+
+        // --- МОДАЛКА БЫСТРОГО ДОБАВЛЕНИЯ ОПЕРАЦИИ (FAB) ---
+
+        const quickAddModal = document.getElementById('quickAddModal');
+        const amountInput = document.getElementById('amountInput');
+
+        document.getElementById('fabAddBtn').addEventListener('click', () => {
+            document.getElementById('dateInput').value = getTodayISO();
+            amountInput.value = '';
+            document.getElementById('noteInput').value = '';
+            renderCategoryChips();
+            quickAddModal.classList.add('open');
+            setTimeout(() => amountInput.focus(), 60);
+        });
+
+        document.getElementById('closeQuickAddBtn').addEventListener('click', () => {
+            quickAddModal.classList.remove('open');
+        });
+
+        const typeExpenseBtn = document.getElementById('typeExpenseBtn');
+        const typeIncomeBtn = document.getElementById('typeIncomeBtn');
+        const submitTxBtn = document.getElementById('submitTxBtn');
+
+        typeExpenseBtn.addEventListener('click', () => {
+            uiState.txType = 'expense';
+            typeExpenseBtn.classList.add('active');
+            typeIncomeBtn.classList.remove('active');
+            submitTxBtn.textContent = 'Добавить расход';
+            if (uiState.selectedCategory === 'Зарплата' && state.categories.length > 0) {
+                uiState.selectedCategory = state.categories[0].name;
+                renderCategoryChips();
+            }
+        });
+
+        typeIncomeBtn.addEventListener('click', () => {
+            uiState.txType = 'income';
+            typeIncomeBtn.classList.add('active');
+            typeExpenseBtn.classList.remove('active');
+            submitTxBtn.textContent = 'Добавить доход';
+            if (state.categories.some(c => c.name === 'Зарплата')) {
+                uiState.selectedCategory = 'Зарплата';
+                renderCategoryChips();
+            }
+        });
+
+        amountInput.addEventListener('input', () => sanitizeDecimalInput(amountInput));
+
+        document.getElementById('txForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const amount = parseFloat(amountInput.value);
+            if (isNaN(amount) || amount <= 0) {
+                showToast('Введите сумму больше 0');
+                amountInput.focus();
+                return;
+            }
+
+            const dateVal = document.getElementById('dateInput').value || getTodayISO();
+            const noteVal = document.getElementById('noteInput').value.trim();
+
+            const newTx = {
+                id: 'tx_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+                type: uiState.txType,
+                amount: Math.round(amount * 100) / 100,
+                category: uiState.selectedCategory,
+                note: noteVal,
+                date: dateVal,
+                createdAt: Date.now()
+            };
+
+            state.transactions.push(newTx);
+            saveState();
+
+            quickAddModal.classList.remove('open');
+            refreshAllUI();
+            showToast(newTx.type === 'expense' ? 'Расход добавлен' : 'Доход добавлен');
+        });
+
+        // --- УПРАВЛЕНИЕ КАТЕГОРИЯМИ (ДОБАВЛЕНИЕ И УДАЛЕНИЕ) ---
+
+        document.getElementById('categoryChipsContainer').addEventListener('click', (e) => {
+            if (e.target.closest('#openNewCategoryBtn')) {
+                const modal = document.getElementById('categoryModal');
+                const input = document.getElementById('newCategoryNameInput');
+                input.value = '';
+                modal.classList.add('open');
+                setTimeout(() => input.focus(), 50);
+                return;
+            }
+
+            const chip = e.target.closest('.chip[data-cat]');
+            if (chip) {
+                uiState.selectedCategory = chip.dataset.cat;
+                renderCategoryChips();
+            }
+        });
+
+        ['cancelCategoryBtn', 'cancelCategoryBtnTop'].forEach(id => {
+            document.getElementById(id).addEventListener('click', () => {
+                document.getElementById('categoryModal').classList.remove('open');
+            });
+        });
+
+        document.getElementById('confirmCategoryBtn').addEventListener('click', () => {
+            const input = document.getElementById('newCategoryNameInput');
+            const rawName = input.value.trim();
+            if (!rawName) return;
+
+            const exists = state.categories.find(c => c.name.toLowerCase() === rawName.toLowerCase());
+            if (exists) {
+                uiState.selectedCategory = exists.name;
+            } else {
+                const color = CATEGORY_COLORS[state.categories.length % CATEGORY_COLORS.length];
+                state.categories.push({ name: rawName, icon: '🏷️', color });
+                uiState.selectedCategory = rawName;
+                saveState();
+            }
+
+            renderCategoryChips();
+            document.getElementById('categoryModal').classList.remove('open');
+        });
+
+        // Открытие списка удаления категорий
+        function openCategoryManager() {
+            renderManageCategoriesList();
+            document.getElementById('manageCategoriesModal').classList.add('open');
+        }
+
+        document.getElementById('openManageCategoriesBtn').addEventListener('click', openCategoryManager);
+        document.getElementById('settingsManageCatsBtn').addEventListener('click', () => {
+            document.getElementById('settingsModal').classList.remove('open');
+            openCategoryManager();
+        });
+
+        ['closeManageCatBtn', 'doneManageCatBtn'].forEach(id => {
+            document.getElementById(id).addEventListener('click', () => {
+                document.getElementById('manageCategoriesModal').classList.remove('open');
+            });
+        });
+
+        document.getElementById('manageCategoriesList').addEventListener('click', (e) => {
+            const delBtn = e.target.closest('[data-remove-cat]');
+            if (!delBtn || state.categories.length <= 1) return;
+
+            const catName = delBtn.dataset.removeCat;
+            const idx = state.categories.findIndex(c => c.name === catName);
+            if (idx === -1) return;
+
+            const [removedCat] = state.categories.splice(idx, 1);
+            saveState();
+            renderManageCategoriesList();
+            renderCategoryChips();
+
+            showToast(`Категория «${catName}» удалена`, () => {
+                state.categories.splice(idx, 0, removedCat);
+                saveState();
+                renderManageCategoriesList();
+                renderCategoryChips();
+            });
+        });
+
+        // --- КОПИЛКА: ЛОГИКА ПОПОЛНЕНИЯ, СНЯТИЯ И ЦЕЛЕЙ ---
+
+        const piggyTxModal = document.getElementById('piggyTxModal');
+        const piggyAmountInput = document.getElementById('piggyAmountInput');
+
+        function openPiggyModal(mode, preselectJarId = null) {
+            uiState.piggyMode = mode;
+            const isDeposit = mode === 'deposit';
+
+            document.getElementById('piggyModalTitle').textContent = isDeposit ? 'Отложить в копилку' : 'Взять из копилки';
+            document.getElementById('submitPiggyTxBtn').textContent = isDeposit ? 'Пополнить копилку' : 'Снять из копилки';
+            document.getElementById('toggleTitleText').textContent = isDeposit
+                ? 'Списать с основного баланса'
+                : 'Вернуть на основной баланс';
+            document.getElementById('toggleSubText').textContent = isDeposit
+                ? 'Уменьшит доступный остаток на расходы'
+                : 'Добавит сумму к доступному остатку';
+            document.getElementById('linkMainBalanceCheck').checked = true;
+
+            // Заполняем селект целей
+            const select = document.getElementById('piggyJarSelect');
+            if (state.jars.length === 0) {
+                state.jars.push({ id: 'jar_default', name: 'Общая копилка', icon: '🐷', target: 0 });
+            }
+            select.innerHTML = state.jars.map(j => `<option value="${j.id}">${j.icon} ${escapeHtml(j.name)}</option>`).join('');
+            if (preselectJarId && state.jars.some(j => j.id === preselectJarId)) {
+                select.value = preselectJarId;
+            }
+
+            piggyAmountInput.value = '';
+            document.getElementById('piggyNoteInput').value = isDeposit ? 'Отложил с зарплаты' : '';
+            document.getElementById('piggyDateInput').value = getTodayISO();
+
+            piggyTxModal.classList.add('open');
+            setTimeout(() => piggyAmountInput.focus(), 60);
+        }
+
+        document.getElementById('openPiggyDepositBtn').addEventListener('click', () => openPiggyModal('deposit'));
+        document.getElementById('openPiggyWithdrawBtn').addEventListener('click', () => openPiggyModal('withdraw'));
+        document.getElementById('closePiggyTxBtn').addEventListener('click', () => piggyTxModal.classList.remove('open'));
+
+        piggyAmountInput.addEventListener('input', () => sanitizeDecimalInput(piggyAmountInput));
+
+        document.getElementById('piggyTxForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const amount = parseFloat(piggyAmountInput.value);
+            if (isNaN(amount) || amount <= 0) {
+                showToast('Введите сумму больше 0');
+                piggyAmountInput.focus();
+                return;
+            }
+
+            const roundedAmount = Math.round(amount * 100) / 100;
+            const jarId = document.getElementById('piggyJarSelect').value;
+            const jar = state.jars.find(j => j.id === jarId) || { name: 'Копилка' };
+            const dateVal = document.getElementById('piggyDateInput').value || getTodayISO();
+            const noteVal = document.getElementById('piggyNoteInput').value.trim();
+            const linkMainBalance = document.getElementById('linkMainBalanceCheck').checked;
+            const isDeposit = uiState.piggyMode === 'deposit';
+
+            // Проверка достаточности средств при снятии из копилки
+            if (!isDeposit) {
+                const { byJar } = getPiggyTotals();
+                const availableInJar = byJar[jarId] || 0;
+                if (roundedAmount > availableInJar) {
+                    showToast(`В цели «${jar.name}» доступно только ${formatMoney(availableInJar)}`);
+                    return;
+                }
+            }
+
+            const piggyEntry = {
+                id: 'ptx_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+                type: uiState.piggyMode,
+                jarId,
+                amount: roundedAmount,
+                note: noteVal,
+                date: dateVal,
+                createdAt: Date.now()
+            };
+
+            state.piggyTransactions.push(piggyEntry);
+
+            // Если включена связь с основным балансом — создаём транзакцию перевода
+            if (linkMainBalance) {
+                state.transactions.push({
+                    id: 'tx_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+                    type: isDeposit ? 'savings' : 'income',
+                    amount: roundedAmount,
+                    category: isDeposit ? 'В копилку' : 'Из копилки',
+                    note: `${jar.name}${noteVal ? ': ' + noteVal : ''}`,
+                    date: dateVal,
+                    createdAt: Date.now()
+                });
+            }
+
+            saveState();
+            piggyTxModal.classList.remove('open');
+            refreshAllUI();
+            showToast(isDeposit ? `Отложено ${formatMoney(roundedAmount)}` : `Взято ${formatMoney(roundedAmount)}`);
+        });
+
+        // Создание и удаление целей копилки
+        const newJarModal = document.getElementById('newJarModal');
+        const newJarTargetInput = document.getElementById('newJarTargetInput');
+        newJarTargetInput.addEventListener('input', () => sanitizeDecimalInput(newJarTargetInput));
+
+        document.getElementById('openNewJarBtn').addEventListener('click', () => {
+            document.getElementById('newJarNameInput').value = '';
+            newJarTargetInput.value = '';
+            newJarModal.classList.add('open');
+            setTimeout(() => document.getElementById('newJarNameInput').focus(), 50);
+        });
+
+        ['closeNewJarBtn', 'cancelNewJarBtn'].forEach(id => {
+            document.getElementById(id).addEventListener('click', () => newJarModal.classList.remove('open'));
+        });
+
+        document.getElementById('confirmNewJarBtn').addEventListener('click', () => {
+            const name = document.getElementById('newJarNameInput').value.trim();
+            if (!name) return;
+            const targetVal = parseFloat(newJarTargetInput.value);
+            const icons = ['🎯', '🚗', '✈️', '🏠', '💻', '🛡️', '💎'];
+            const icon = icons[state.jars.length % icons.length];
+
+            state.jars.push({
+                id: 'jar_' + Date.now().toString(36),
+                name,
+                icon,
+                target: (!isNaN(targetVal) && targetVal > 0) ? Math.round(targetVal * 100) / 100 : 0
+            });
+
+            saveState();
+            newJarModal.classList.remove('open');
+            renderPiggyView();
+            showToast(`Цель «${name}» создана`);
+        });
+
+        // Клики внутри списка целей и истории копилки (пополнить / удалить цель / удалить запись)
+        document.getElementById('jarsListContainer').addEventListener('click', (e) => {
+            const depBtn = e.target.closest('[data-deposit-jar]');
+            if (depBtn) {
+                openPiggyModal('deposit', depBtn.dataset.depositJar);
+                return;
+            }
+
+            const delJarBtn = e.target.closest('[data-delete-jar]');
+            if (delJarBtn && state.jars.length > 1) {
+                const jarId = delJarBtn.dataset.deleteJar;
+                const idx = state.jars.findIndex(j => j.id === jarId);
+                if (idx === -1) return;
+
+                const [removedJar] = state.jars.splice(idx, 1);
+                const removedTxs = state.piggyTransactions.filter(t => t.jarId === jarId);
+                state.piggyTransactions = state.piggyTransactions.filter(t => t.jarId !== jarId);
+
+                saveState();
+                refreshAllUI();
+
+                showToast(`Цель «${removedJar.name}» удалена`, () => {
+                    state.jars.splice(idx, 0, removedJar);
+                    state.piggyTransactions.push(...removedTxs);
+                    saveState();
+                    refreshAllUI();
+                });
+            }
+        });
+
+        document.getElementById('piggyHistoryContainer').addEventListener('click', (e) => {
+            const delBtn = e.target.closest('[data-delete-piggy-tx]');
+            if (!delBtn) return;
+
+            const ptxId = delBtn.dataset.deletePiggyTx;
+            const idx = state.piggyTransactions.findIndex(t => t.id === ptxId);
+            if (idx === -1) return;
+
+            const [removed] = state.piggyTransactions.splice(idx, 1);
+            saveState();
+            refreshAllUI();
+
+            showToast('Запись копилки удалена', () => {
+                state.piggyTransactions.splice(idx, 0, removed);
+                saveState();
+                refreshAllUI();
+            });
+        });
+
+        // --- УДАЛЕНИЕ ОПЕРАЦИЙ (С ОТМЕНОЙ UNDO) ---
+
+        function handleDeleteTransaction(txId) {
+            const index = state.transactions.findIndex(t => t.id === txId);
+            if (index === -1) return;
+
+            const [removed] = state.transactions.splice(index, 1);
+            saveState();
+            refreshAllUI();
+
+            showToast('Операция удалена', () => {
+                state.transactions.splice(index, 0, removed);
+                saveState();
+                refreshAllUI();
+            });
+        }
+
+        document.getElementById('transactionsListContainer').addEventListener('click', (e) => {
+            const delBtn = e.target.closest('.delete-btn');
+            if (delBtn) handleDeleteTransaction(delBtn.dataset.deleteId);
+        });
+
+        document.getElementById('recentTransactionsContainer').addEventListener('click', (e) => {
+            const delBtn = e.target.closest('.delete-btn');
+            if (delBtn) handleDeleteTransaction(delBtn.dataset.deleteId);
+        });
+
+        document.getElementById('toastUndoBtn').addEventListener('click', () => {
+            if (typeof uiState.undoAction === 'function') {
+                uiState.undoAction();
+                uiState.undoAction = null;
+                document.getElementById('toastBox').classList.remove('show');
+            }
+        });
+
+        // --- ФИЛЬТРЫ ИСТОРИИ ---
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            uiState.searchQuery = e.target.value;
+            renderTransactionsList();
+        });
+
+        document.getElementById('monthFilterSelect').addEventListener('change', (e) => {
+            uiState.filterMonth = e.target.value;
+            renderTransactionsList();
+        });
+
+        document.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                uiState.filterType = pill.dataset.typeFilter;
+                renderTransactionsList();
+            });
+        });
+
+        // --- НАСТРОЙКИ, БЮДЖЕТ И ЭКСПОРТ ---
+
+        const settingsModal = document.getElementById('settingsModal');
+
+        function openSettingsModal() {
+            renderSettings();
+            settingsModal.classList.add('open');
+        }
+
+        document.getElementById('openSettingsBtn').addEventListener('click', openSettingsModal);
+        document.getElementById('inlineEditBudgetBtn').addEventListener('click', () => {
+            openSettingsModal();
+            setTimeout(() => document.getElementById('budgetLimitInput').focus(), 60);
+        });
+        document.getElementById('closeSettingsBtn').addEventListener('click', () => settingsModal.classList.remove('open'));
+
+        document.getElementById('currencySelector').addEventListener('click', (e) => {
+            const btn = e.target.closest('.currency-btn');
+            if (!btn) return;
+            state.settings.currency = btn.dataset.curr;
+            saveState();
+            refreshAllUI();
+            showToast(`Валюта: ${state.settings.currency}`);
+        });
+
+        const budgetLimitInput = document.getElementById('budgetLimitInput');
+        budgetLimitInput.addEventListener('input', () => sanitizeDecimalInput(budgetLimitInput));
+
+        document.getElementById('saveBudgetBtn').addEventListener('click', () => {
+            const val = parseFloat(budgetLimitInput.value);
+            state.settings.monthlyBudget = (!isNaN(val) && val > 0) ? Math.round(val * 100) / 100 : 0;
+            saveState();
+            renderDashboard();
+            settingsModal.classList.remove('open');
+            showToast(state.settings.monthlyBudget > 0 ? 'Месячный лимит сохранён' : 'Лимит отключён');
+        });
+
+        // Экспорт в JSON
+        document.getElementById('exportJsonBtn').addEventListener('click', () => {
+            const dataStr = JSON.stringify(state, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `finance_backup_${getTodayISO()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Экспорт в CSV
+        document.getElementById('exportCsvBtn').addEventListener('click', () => {
+            const headers = ['Дата', 'Тип', 'Категория', 'Сумма', 'Валюта', 'Комментарий'];
+            const typeNames = { income: 'Доход', expense: 'Расход', savings: 'В копилку' };
+            const rows = state.transactions
+                .slice()
+                .sort((a, b) => b.date.localeCompare(a.date))
+                .map(tx => [
+                    tx.date,
+                    typeNames[tx.type] || tx.type,
+                    `"${tx.category.replace(/"/g, '""')}"`,
+                    tx.amount.toString().replace('.', ','),
+                    state.settings.currency,
+                    `"${(tx.note || '').replace(/"/g, '""')}"`
+                ]);
+
+            const csvContent = '\uFEFF' + [headers.join(';'), ...rows.map(r => r.join(';'))].join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `finance_export_${getTodayISO()}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Импорт из JSON
+        const importFileInput = document.getElementById('importFileInput');
+        document.getElementById('importJsonBtn').addEventListener('click', () => importFileInput.click());
+
+        importFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const imported = JSON.parse(event.target.result);
+                    if (!imported || !Array.isArray(imported.transactions)) throw new Error();
+                    state.transactions = imported.transactions;
+                    if (Array.isArray(imported.categories) && imported.categories.length > 0) state.categories = imported.categories;
+                    if (Array.isArray(imported.jars) && imported.jars.length > 0) state.jars = imported.jars;
+                    if (Array.isArray(imported.piggyTransactions)) state.piggyTransactions = imported.piggyTransactions;
+                    if (imported.settings) state.settings = { ...state.settings, ...imported.settings };
+
+                    saveState();
+                    refreshAllUI();
+                    settingsModal.classList.remove('open');
+                    showToast('Данные успешно восстановлены');
+                } catch (err) {
+                    showToast('Ошибка: некорректный JSON-файл');
+                }
+                importFileInput.value = '';
+            };
+            reader.readAsText(file);
+        });
+
+        // Очистка всех данных
+        document.getElementById('clearAllDataBtn').addEventListener('click', () => {
+            settingsModal.classList.remove('open');
+            document.getElementById('confirmClearModal').classList.add('open');
+        });
+
+        document.getElementById('cancelClearBtn').addEventListener('click', () => {
+            document.getElementById('confirmClearModal').classList.remove('open');
+        });
+
+        document.getElementById('confirmClearBtn').addEventListener('click', () => {
+            state.transactions = [];
+            state.piggyTransactions = [];
+            saveState();
+            refreshAllUI();
+            document.getElementById('confirmClearModal').classList.remove('open');
+            showToast('Все данные очищены');
+        });
+
+        // Закрытие модалок по клику на фон
+        document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+            backdrop.addEventListener('click', (e) => {
+                if (e.target === backdrop) backdrop.classList.remove('open');
+            });
+        });
+
+        // --- СТАРТ ПРИЛОЖЕНИЯ ---
+        loadState();
+        document.getElementById('dateInput').value = getTodayISO();
+        document.getElementById('piggyDateInput').value = getTodayISO();
+        refreshAllUI();
+    })();
+</script>
+</body>
+</html>
